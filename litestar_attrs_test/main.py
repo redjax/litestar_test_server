@@ -13,7 +13,7 @@ from lib.constants import (
     APP_VERSION,
     OPENAPI_ROOT_SCHEMA_SITE,
     OPENAPI_DOCS_PATH,
-    dev_user_db_init,
+    # dev_user_db_init,
 )
 
 ## Import custom openapi_docs classes/functions
@@ -23,9 +23,10 @@ from schemas.openapi_docs import (
     get_openapi_config,
 )
 
+from lib.db import create_init_db
 
 if TYPE_CHECKING:
-    ...
+    from litestar.datastructures import State
 
 
 from litestar import Litestar, get, MediaType
@@ -46,11 +47,18 @@ openapi_config_dict = {
 
 ## Create OpenAPIConfig object
 openapi_config = get_openapi_config(conf=openapi_config_dict)
-print(f"[DEBUG] Docs config: {openapi_config}")
-print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
+# print(f"[DEBUG] Docs config: {openapi_config}")
+# print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
+
+
+def db_startup(state: State) -> None:
+    create_init_db()
+
 
 ## Create Litestar app
 app = Litestar(
+    ## Initialize JSON DB, if one does not exist
+    on_startup=[db_startup],
     ## Add route handlers/controllers to app
     route_handlers=[RootController, UserController],
     ## Add custom OpenAPI config for docs site
