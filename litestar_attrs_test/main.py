@@ -13,7 +13,7 @@ from lib.constants import (
     APP_VERSION,
     OPENAPI_ROOT_SCHEMA_SITE,
     OPENAPI_DOCS_PATH,
-    dev_user_db_init,
+    # dev_user_db_init,
 )
 
 ## Import custom openapi_docs classes/functions
@@ -23,24 +23,16 @@ from schemas.openapi_docs import (
     get_openapi_config,
 )
 
+from lib.db import create_init_db
 
 if TYPE_CHECKING:
-    ...
+    from litestar.datastructures import State
 
 
 from litestar import Litestar, get, MediaType
 
-
-## Create health check route
-@get(path="/health-check", media_type=MediaType.TEXT)
-def health_check() -> str:
-    return "healthy"
-
-
-## Create root route
-@get(path="/")
-def hello_world() -> Dict[str, str]:
-    return {"hello": "world"}
+from controllers.root_controller import RootController
+from controllers.user_controller import UserController
 
 
 ## Create docs config dict
@@ -55,13 +47,20 @@ openapi_config_dict = {
 
 ## Create OpenAPIConfig object
 openapi_config = get_openapi_config(conf=openapi_config_dict)
-print(f"[DEBUG] Docs config: {openapi_config}")
-print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
+# print(f"[DEBUG] Docs config: {openapi_config}")
+# print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
+
+
+def db_startup(state: State) -> None:
+    create_init_db()
+
 
 ## Create Litestar app
 app = Litestar(
-    ## Add route handlers to app
-    route_handlers=[hello_world, health_check],
+    ## Initialize JSON DB, if one does not exist
+    on_startup=[db_startup],
+    ## Add route handlers/controllers to app
+    route_handlers=[RootController, UserController],
     ## Add custom OpenAPI config for docs site
     openapi_config=openapi_config,
 )
