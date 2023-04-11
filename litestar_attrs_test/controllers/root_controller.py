@@ -28,10 +28,10 @@ class RootController(Controller):
 
     ## Create root route
     @get(path="/", media_type=MediaType.TEXT)
-    async def hello_world() -> Dict[str, str]:
+    async def hello_world(self) -> Dict[str, str]:
         return {"hello": "world"}
 
     ## Create health check route
     @get(path="/healthcheck", media_type=MediaType.TEXT)
-    async def health_check() -> str:
+    async def health_check(self) -> str:
         return "healthy"

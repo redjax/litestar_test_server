@@ -31,6 +31,7 @@ if TYPE_CHECKING:
 from litestar import Litestar, get, MediaType
 
 from controllers.root_controller import RootController
+from controllers.user_controller import UserController
 
 
 ## Create docs config dict
@@ -51,7 +52,7 @@ print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
 ## Create Litestar app
 app = Litestar(
     ## Add route handlers/controllers to app
-    route_handlers=[RootController],
+    route_handlers=[RootController, UserController],
     ## Add custom OpenAPI config for docs site
     openapi_config=openapi_config,
 )
