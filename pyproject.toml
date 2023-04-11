@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "litestar-attrs-test"
+version = "0.1.0"
+description = ""
+authors = ["redjax <jackenyon@gmail.com>"]
+readme = "README.md"
+packages = [{include = "litestar_attrs_test"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+litestar = "^2.0.0a3"
+attrs = "^22.2.0"
+msgspec = "^0.14.1"
+python-dotenv = "^1.0.0"
+python-multipart = "^0.0.6"
+pyyaml = "^6.0"
+sqlalchemy = "^2.0.9"
+uvicorn = "^0.21.1"
+stackprinter = "^0.2.10"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+isort = "^5.12.0"
+pytest = "^7.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
