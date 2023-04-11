@@ -4,10 +4,9 @@ from typing import TYPE_CHECKING, Dict, Union, Optional, Any
 if TYPE_CHECKING:
     ...
 
-import attrs
+import msgspec
 
 
-@attrs.define()
-class User(object):
-    id: int
-    name: str
+class User(msgspec.Struct):
+    id: int | None = None
+    name: str | None = None
