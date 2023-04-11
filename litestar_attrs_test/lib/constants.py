@@ -1,3 +1,8 @@
+"""
+Constants that can be imported anywhere in the app. Contains
+default values and variables.
+"""
+
 from litestar.openapi.spec import Contact, Tag
 
 APP_TITLE = "litestar-testing"
@@ -6,9 +11,10 @@ APP_DESCRIPTION = (
     "Learning environment for Litestar: https://docs.litestar.dev/2/index.html"
 )
 
+## Path to documentation site
 OPENAPI_DOCS_PATH = "/docs"
 ## Options: (default) 'redoc', 'swagger', 'elements'
-OPENAPI_ROOT_SCHEMA_SITE = "elements"
+OPENAPI_ROOT_SCHEMA_SITE = "swagger"
 
 STATIC_DIR = "static"
 STATIC_PATH = "/static"

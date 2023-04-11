@@ -30,17 +30,7 @@ if TYPE_CHECKING:
 
 from litestar import Litestar, get, MediaType
 
-
-## Create health check route
-@get(path="/health-check", media_type=MediaType.TEXT)
-def health_check() -> str:
-    return "healthy"
-
-
-## Create root route
-@get(path="/")
-def hello_world() -> Dict[str, str]:
-    return {"hello": "world"}
+from controllers.root_controller import RootController
 
 
 ## Create docs config dict
@@ -60,8 +50,8 @@ print(f"[DEBUG] Docs Controller: {openapi_config.openapi_controller.__dict__}")
 
 ## Create Litestar app
 app = Litestar(
-    ## Add route handlers to app
-    route_handlers=[hello_world, health_check],
+    ## Add route handlers/controllers to app
+    route_handlers=[RootController],
     ## Add custom OpenAPI config for docs site
     openapi_config=openapi_config,
 )
