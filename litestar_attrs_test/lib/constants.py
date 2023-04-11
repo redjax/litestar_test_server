@@ -22,7 +22,10 @@ FAVICON_PATH = f"{STATIC_PATH}/favicon.ico"
 
 
 ## Initial mock-db (dict), for examples/testing
-dev_user_db_init = {0: {"id": 0, "name": "John Doe"}, 1: {"id": 1, "name": "Jane Doe"}}
+# dev_user_db_init = {0: {"id": 0, "name": "John Doe"}, 1: {"id": 1, "name": "Jane Doe"}}
+dev_user_db_dir = "db"
+dev_user_db = "users.json"
+db_seed = {0: {"id": 0, "name": "John Doe"}, 1: {"id": 1, "name": "Jane Doe"}}
 
 ## Server configuration for consumption by dev_server.py
 uvicorn_dev_server_conf = {

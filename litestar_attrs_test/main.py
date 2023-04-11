@@ -13,7 +13,7 @@ from lib.constants import (
     APP_VERSION,
     OPENAPI_ROOT_SCHEMA_SITE,
     OPENAPI_DOCS_PATH,
-    dev_user_db_init,
+    # dev_user_db_init,
 )
 
 ## Import custom openapi_docs classes/functions
