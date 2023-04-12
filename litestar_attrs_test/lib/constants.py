@@ -33,7 +33,7 @@ dev_db_seed = {
 
 ## Server configuration for consumption by dev_server.py
 uvicorn_dev_server_conf = {
-    "app": "main:app",
+    "app": "test:app",
     "host": "0.0.0.0",
     "port": 8120,
     "reload": True,
