@@ -17,6 +17,8 @@ pyyaml = "^6.0"
 sqlalchemy = "^2.0.9"
 uvicorn = "^0.21.1"
 stackprinter = "^0.2.10"
+requests = "^2.28.2"
+requests-cache = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
