@@ -30,26 +30,25 @@ if TYPE_CHECKING:
 
 
 from litestar import Litestar, get, MediaType
+from litestar.openapi.spec import Tag
 
 from controllers.root_controller import RootController
 from controllers.user_controller import UserController
 
-## Config testing
-# from lib.config.config import settings
+## Import configurations
+from lib.config.Config import app_settings, openapi_settings
 
-from lib.config.Config import CONFIG_BASE_DIR
-
-# print(f"[TEST] CONFIG_BASE_DIR: {CONFIG_BASE_DIR}")
-
-# print(f"[DEBUG] Settings: {settings}")
+# print(f"[DEBUG] Settings: {app_settings}")
+# print(f"[DEBUG] OpenAPI Settings: {openapi_settings}")
 
 
 ## Create docs config dict
+#  Tries to use values of app_settings before constant.
 openapi_config_dict = {
-    "title": APP_TITLE,
-    "description": APP_DESCRIPTION,
-    "version": APP_VERSION,
-    "root_schema_site": OPENAPI_ROOT_SCHEMA_SITE,
+    "title": app_settings.app_title or APP_TITLE,
+    "description": app_settings.app_description or APP_DESCRIPTION,
+    "version": app_settings.app_version or APP_VERSION,
+    "root_schema_site": openapi_settings.root_schema_site or OPENAPI_ROOT_SCHEMA_SITE,
     # "tags": [Tag(name=..., description=...)],
     "openapi_controller": DocsController,
 }

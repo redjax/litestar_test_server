@@ -20,11 +20,14 @@ from models.users_pydantic import User
 
 from lib.db import load_db, update_db
 
+tags = ["example"]
+
 
 class UserController(Controller):
     path = "/user"
+    tags = tags
 
-    @post()
+    @post(description="Create a new user.")
     async def create_user(self, data: User) -> dict[str, Any]:
         print(f"Creating user from: {data}")
 
@@ -59,7 +62,34 @@ class UserController(Controller):
 
             return _new_user_res
 
-    @get("/{user_id:int}")
+    @get("/all", description="Retrieve all User objects from database.")
+    def retrieve_all_users(self) -> list[User]:
+        try:
+            _db = load_db()
+
+        except Exception as exc:
+            raise Exception(f"Error loading database. Exception details:\n{exc}")
+
+        users_keys = _db.keys()
+        users_values = _db.values()
+
+        ## Initialize empty list of users to return
+        return_users = []
+
+        for user in _db:
+            # print(f"User {user}: {_db[user]}")
+
+            ## Create User class obj from _user dict
+            _user = User.parse_obj(_db[user])
+
+            ## Add _user to return_users list
+            return_users.append(_user)
+
+        print(f"[DEBUG] Return users: {return_users}")
+
+        return return_users
+
+    @get("/{user_id:int}", description="Retrieve user by ID.")
     def retrieve_user(self, user_id: int) -> dict:
         """
         Lookup user by ID. Return a User() object
@@ -99,7 +129,9 @@ class UserController(Controller):
         else:
             return {"error": f"User with ID '{user_id}' not found in database."}
 
-    @patch(path="/{user_id:int}")
+    @patch(
+        path="/{user_id:int}", description="Perform partial update of User in database."
+    )
     async def update_user(self, user_id: int, data: Partial[User]) -> User:
         print(f"Partial update: ID: {user_id} - {data}")
 
@@ -152,7 +184,7 @@ class UserController(Controller):
         else:
             return {"error": f"User with ID '{user_id}' not found in database."}
 
-    @delete(path="/{user_id:int}")
+    @delete(path="/{user_id:int}", description="Delete user from database by ID.")
     async def delete_user(self, user_id: int) -> None:
         print(f"Deleting user with ID: {user_id}")
 

@@ -1,4 +1,6 @@
 ---
-APP_TITLE: "Litestar Test Server"
-APP_DESCRIPTION: "Slowly building up a Litestar server to use as a reference."
-APP_VERSION: "0.2"
+app_title: "Unnamed Litestar API"
+app_description: "Default description"
+app_version: "0.1.x"
+
+secret_test: "This is a secret!"

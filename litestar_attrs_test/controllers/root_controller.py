@@ -15,6 +15,8 @@ from litestar import MediaType
 from litestar.controller import Controller
 from litestar.handlers import get, post
 
+tags = ["root"]
+
 
 class RootController(Controller):
     """
@@ -25,13 +27,22 @@ class RootController(Controller):
     """
 
     path = "/"
+    tags = tags
 
     ## Create root route
-    @get(path="/", media_type=MediaType.TEXT)
+    @get(
+        path="/",
+        media_type=MediaType.TEXT,
+        description="Returns hello world when / is reached.",
+    )
     async def hello_world(self) -> Dict[str, str]:
         return {"hello": "world"}
 
     ## Create health check route
-    @get(path="/healthcheck", media_type=MediaType.TEXT)
+    @get(
+        path=["/healthcheck", "/healthy"],
+        media_type=MediaType.TEXT,
+        description="Can be pinged as a healthcheck, i.e. curl $ip:$port/healthcheck. Returns 'healthy' if up.",
+    )
     async def health_check(self) -> str:
         return "healthy"
