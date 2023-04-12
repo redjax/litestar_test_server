@@ -1,0 +1,4 @@
+---
+APP_TITLE: "Litestar Test Server"
+APP_DESCRIPTION: "Slowly building up a Litestar server to use as a reference."
+APP_VERSION: "0.2"

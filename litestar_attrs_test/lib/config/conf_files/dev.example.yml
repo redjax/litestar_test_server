@@ -1,0 +1,4 @@
+---
+test_api_one:
+  uri: "https://dev_api/"
+  secret: dev

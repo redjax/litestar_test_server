@@ -1,4 +1,0 @@
-DB:
-  DB_TYPE: "sqlite"
-  DB_FILE: "db/sqlite.db"
-  DB_PORT: Null

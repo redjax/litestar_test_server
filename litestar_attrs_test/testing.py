@@ -34,6 +34,15 @@ from litestar import Litestar, get, MediaType
 from controllers.root_controller import RootController
 from controllers.user_controller import UserController
 
+## Config testing
+# from lib.config.config import settings
+
+from lib.config.Config import CONFIG_BASE_DIR
+
+# print(f"[TEST] CONFIG_BASE_DIR: {CONFIG_BASE_DIR}")
+
+# print(f"[DEBUG] Settings: {settings}")
+
 
 ## Create docs config dict
 openapi_config_dict = {
